@@ -178,7 +178,7 @@ export default {
     /* overflow: hidden; */
     padding:5px;
     box-sizing: border-box;
-    height: 180px;
+    height: 190px;
     cursor: pointer;
     box-shadow: 0 0 10px rgba(0,0,0,.2);
     border-radius: 5px;
