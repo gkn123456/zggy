@@ -23,10 +23,10 @@ module.exports = {
     signKey: "GciOiJIUzI1NiISInS4cCI6IkpXVCJ9",
 
     // Various Dev Server settings
-    host: 'localhost',
-    port: 8080,
-    // host: '0.0.0.0',
-    // port: 8301,
+    // host: 'localhost',
+    // port: 8080,
+    host: '0.0.0.0',
+    port: 8301,
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,

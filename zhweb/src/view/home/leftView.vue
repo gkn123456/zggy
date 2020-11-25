@@ -97,7 +97,6 @@ export default {
       _self.$hapi.getNav().then(function(response) {
         let data = response.data;
         if (data.code === 200) {
-          _self.list = data.data.list;
            data.data.list.forEach(element => {
               if(element.tag == 'result'){
                 _self.loadNews(element.nav_id)

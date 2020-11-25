@@ -74,22 +74,22 @@
                 </Modal>
                 <div class="userDeview">
                   <div class="userDeviewicon">
-                    <!-- <Icon type="md-contact" style="font-size:100px;" /> -->
-                    <img :src="user.av" alt="">
+                    <Icon v-if="user.av==''" type="md-contact" style="font-size:100px;" />
+                    <img :src="user.av" alt="" v-if="user.av!==''">
                   </div>
-                  <div class="userDename">{{user.name}}<div :class="user.vip>0?'vip':'vips'"><span style="font-size:18px;">v</span>{{user.vip}}</div></div>
+                  <div class="userDename">{{user.name}}<div :class="user.vip>0?'vip':'vips'"><span style="font-size:18px;">v</span></div></div>
                 </div>
                 <div class="userDecount">
                   <ul>
                     <li>
-                      <div class="uCtitle">等级：</div>
-                      <div class="uCdesc" style="color:red;">{{user.level}}</div>
+                      <div class="uCtitle">姓名：</div>
+                      <div class="uCdesc">{{user.r_name?user.r_name:'- -'}}</div>
                     </li>
                     <li>
                       <div class="uCtitle">性别：</div>
-                      <div class="uCdesc" style="color:red;" v-if="user.sex == 0">未知</div>
-                      <div class="uCdesc" style="color:red;" v-if="user.sex == 1">男</div>
-                      <div class="uCdesc" style="color:red;" v-if="user.sex == 2">女</div>
+                      <div class="uCdesc" v-if="user.sex == 0">未知</div>
+                      <div class="uCdesc" v-if="user.sex == 1">男</div>
+                      <div class="uCdesc" v-if="user.sex == 2">女</div>
                     </li>
                     <li>
                       <div class="uCtitle">联系电话：</div>
@@ -97,15 +97,15 @@
                     </li>
                     <li>
                       <div class="uCtitle">生日：</div>
-                      <div class="uCdesc">{{user.birthday?user.birthday:'--'}}</div>
+                      <div class="uCdesc">{{user.birthday?user.birthday:'- -'}}</div>
                     </li>
                     <li>
                       <div class="uCtitle">个人简介：</div>
-                      <div class="uCdesc">{{user.cont?user.cont:'--'}}</div>
+                      <div class="uCdesc">{{user.cont?user.cont:'- -'}}</div>
                     </li>
                     <li>
                       <div class="uCtitle">会员有效期：</div>
-                      <div class="uCdesc">{{user.exp_at?user.exp_at:'--'}}</div>
+                      <div class="uCdesc">{{user.exp_at?user.exp_at:'- -'}}</div>
                     </li>
                   </ul>
                 </div>

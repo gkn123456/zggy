@@ -82,7 +82,7 @@
                      <div class="morelist" v-if="item.child.length>0">
                       <Button @click="more1(item.info.nav_id)">More</Button>
                     </div>
-                    <div v-for="(obj,i) in item.child" :key="i" class="bookcount_rightli" @click="getDetails(obj.news_id)" v-if="i<5">
+                    <div v-for="(obj,i) in item.child" :key="i" class="bookcount_rightli" @click="getDetails(obj.news_id)" v-if="i<10">
                       {{obj.title}}
                     </div>
                   </div>

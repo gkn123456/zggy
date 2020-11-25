@@ -33,9 +33,10 @@
           </div>   -->
         </div>
         <div class="paybuts" v-if="news.tp == 2||news.tp == 3">
-          VIP可免费阅读全文
-          <span v-if="user.vip > 0">（到期时间：{{user.exp_at}}）</span>
-          <div @click="pay(1)" v-if="!viptime">开通{{viptime}}</div>
+          <span v-if="user.vip == 0">现在加入VIP，可享受免费阅读全文</span>
+          <span v-if="user.vip > 0">VIP可免费阅读全文</span>
+          <span v-if="user.vip > 0" style="color:red;">（到期时间：{{user.exp_at}}）</span>
+          <div @click="pay(1)" v-if="!viptime">开通</div>
           <div @click="pay(1)" v-if="viptime">续费</div>
         </div>
       </Content>

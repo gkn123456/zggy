@@ -11,7 +11,7 @@
           </Breadcrumb>
         </div>
         <ul class="votelistul" style="padding:0 10px 0 30px;margin-top:20px;">
-          <li class="votelistLi" v-for="(item,index) in list.list" :key="index">
+          <li class="votelistLi" v-for="(item,index) in list.list" :key="index" @click="getDetail(item.news_id)">
             <div class="votelistLis">
                 <span>申报单位：</span>
                 <div class="votelistLis_d">{{item.cp?item.cp:'- -'}}</div>
@@ -48,10 +48,19 @@
                   </Tooltip>
                 </div>
             </div>
-            <Button type="primary" @click="vote(item.news_id)" class="voteBut" :disabled="item.is_vote">
-              {{item.is_vote == false?'投票':'已投票'}}
-            </Button>
-            <Icon class="votemore" type="ios-arrow-dropright" @click="getDetail(item.news_id)" />
+            <div class="votelistLis" style="display:flex;justify-content: space-between;">
+                
+              <Button type="primary" @click.stop="vote(item.news_id)" class="voteBut" :disabled="item.is_vote">
+                <span style="color:#fff;" v-if="item.is_vote == false">投票</span>
+                <span style="color:#ccc;" v-if="item.is_vote == true">已投票</span>
+              </Button>
+            <div style="display:flex;align-items:center;">
+              <span>票数：</span>
+                <div class="votelistLis_d">{{item.vc}}票</div>
+            </div>
+            </div>
+            
+            <!-- <Icon class="votemore" type="ios-arrow-dropright" @click="getDetail(item.news_id)" /> -->
           </li>
         </ul>
         <div class="pagebox">
@@ -125,12 +134,13 @@ export default {
         if(data.code == 200){
             _this.$Message.success(data.msg);
             _this.loadNews(_this.$route.query.nav_id)
+        }else{
+          _this.$Message.error(data.msg);
         }
         setTimeout(function(){
           _this.spinShow = false;
         },300)
         if(data.code === 100||data.code === 101){
-            _this.$Message.error(data.msg);
             commons.loginOut();
             console.log(_this.$refs.Logins)
             setTimeout(function(){
@@ -178,7 +188,7 @@ export default {
     /* overflow: hidden; */
     padding:5px;
     box-sizing: border-box;
-    height: 190px;
+    height: 210px;
     cursor: pointer;
     box-shadow: 0 0 10px rgba(0,0,0,.2);
     border-radius: 5px;
@@ -187,25 +197,22 @@ export default {
     padding: 10px;
     margin-right: 30px;
     margin-bottom:20px;
-    padding-right: 60px;
+    padding-right: 10px;
   }
   .votelistLi:nth-child(even){
       margin: 0;
   }
   .voteBut{
-      position: absolute;
-      top:10px;
-      right:10px;
   }
   .votelistLis{
       display: flex;
-      margin-bottom:10px;
+      margin-bottom:5px;
       width:100%;
   }
   .votelistLis span{
       font-size: 13px;
       color: #333;
-      width: 100px;
+      width: 80px;
       display: block;
   }
   .booklistCount{
