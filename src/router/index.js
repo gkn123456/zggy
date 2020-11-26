@@ -42,12 +42,12 @@ export default new Router({
     },
     {
       path: '/voteList',
-      name: 'notice',
+      name: 'voteList',
       component: () => import('@/view/home/voteList.vue')
     },
     {
       path: '/noticeC',
-      name: 'notice',
+      name: 'noticeC',
       component: () => import('@/view/home/noticeC.vue')
     },
     {

@@ -14,7 +14,7 @@
             </p>
             <Icon class="more" type="ios-arrow-dropright" @click="more(nav_id)"/>
           </li>
-          <li style="margin-top:10px;" v-for="(item,i) in list" :key="i">
+          <li style="margin-top:10px;" v-for="(item,ind) in list" :key="ind">
             <div class="left_sideroneli">
               <div class="left_sideronelis"></div>
               <div class="left_sideroneli_des" @click="godetails(item.news_id)">{{item.title}}</div>
@@ -69,7 +69,7 @@
         </ul>
         <ul class="bannerbox">
           <!-- <img class="adImg" v-for="(itemimg,ids) in adlist" v-if="itemimg.loc == 2" :key="ids" :src="itemimg.cover" /> -->
-          <li v-for="(itemimg,ids) in adlist" v-if="itemimg.loc == 3" :key="ids" @click="getlink(itemimg.type,itemimg.t_url)">
+          <li v-for="(itemimg,ids2) in adlist" v-if="itemimg.loc == 4" :key="ids2" @click="getlink(itemimg.type,itemimg.t_url)">
             <img :src="itemimg.cover" alt="" class="banner">
           </li>
         </ul>

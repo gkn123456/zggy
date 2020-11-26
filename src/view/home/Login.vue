@@ -108,7 +108,6 @@
                 _self.$hapi.sendMsg({ mobile: phone }).then(
                     function(response) {
                     let data = response.data;
-                    console.log(data)
                     if (data.code === 200) {
                         _self.$Message.success(data.msg);
                     } else {

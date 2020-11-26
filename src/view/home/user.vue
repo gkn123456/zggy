@@ -28,10 +28,9 @@
                 <Modal
                   v-model="modal1"
                   title="编辑信息"
-                  @on-ok="ok"
-                  @on-cancel="cancel">
+                  @on-ok="ok">
                     <div class="userDecount" style="padding:0;">
-                      <Form ref="formInline" :model="formInline" :rules="ruleInline" inline>
+                      <Form ref="formInline" :model="formInline" inline>
                       <ul>
                         <li>
                           <div class="uCtitle">用户头像：</div>
@@ -46,10 +45,6 @@
                           <div class="uCtitle">姓名：</div>
                           <FormItem prop="r_name"><Input style="padding:0;margin:0;" type="text" v-model="formInline.r_name" /></FormItem>
                         </li>
-                        <!-- <li>
-                          <div class="uCtitle">联系电话：</div>
-                          <FormItem prop="mobile"><Input type="text" v-model="formInline.mobile" /></FormItem>
-                        </li> -->
                         <li>
                           <div class="uCtitle">性别：</div>
                           <FormItem prop="sex">
@@ -125,11 +120,6 @@
           </TabPane>
         </Tabs>
       </div>
-      
-      <!-- <Content class="cotent">
-        <router-link :to="{path:'/news',query: {id: 1}}">1</router-link>
-        <router-link :to="{path:'/news',query: {id: 1}}">1</router-link>
-      </Content> -->
     </Layout>
     <Login ref="Logins" />
   </div>
@@ -148,7 +138,9 @@ export default {
       modal1:false,
       list: [], 
       nav_id: 0,
-      user:null,
+      user:{
+        av:''
+      },
       columns1: [
         {title: '类目',key: 'name'},
         {title: '购买时间',key: 'ct',render: ( h, params ) => h( 'span', commons.formatDate(params.row.ct))},
@@ -165,15 +157,10 @@ export default {
       ],
       data3: [],
       data4:[],
-      // data5:[],
-      // columns5: [
-      //   {title: '投票内容',key: 'name'},
-      //   {title: '下载时间',key: 'ct',render: ( h, params ) => h( 'span', formatDate.formatDate(params.row.ct))},
-      // ],
       uid:'',
       page:1,
       size:10,
-      c:'',
+      c:0,
       name:'',
       cityList:[
         {value:1,label:'男'},
@@ -219,7 +206,6 @@ export default {
         let data = response.data;
         if (data.code === 200) {
           _self.user = data.data
-          console.log(data.data.birthday)
           _self.formInline = data.data
           _self.urlimg = data.data.av
         } else {
@@ -276,19 +262,17 @@ export default {
     },
     getDetail(id){
       const _this = this;
-      this.$router.push({ path: '/news/detail', query: { news_id: id,type:0,backPath:'/user' } });
+      this.$router.push({ path: '/news/detail', query: { news_id: id,type:0,backPath:'/getUser' } });
     },
     modal1s(){
       this.modal1 = true
     },
     birthdaychange(a,b){
-      console.log(a)
       this.formInline.birthday = a
       this.birthday = a
     },
     ok(){
       const _this = this;
-      console.log(_this.img_key,)
       _this.$hapi.userEdit({sex:_this.formInline.sex,user_id:_this.uid,name:_this.formInline.name,r_name:_this.formInline.r_name,hear_icon:_this.img_key,birthday:_this.formInline.birthday,cont:_this.formInline.cont}).then(function(response) {
         let data = response.data;
         if(data.code == 200){
@@ -310,10 +294,8 @@ export default {
       const _this= this;
       return new Promise((resolve, reject) => {
           let uptoken = _this.img_token;
-          console.log(file)
           const files = _this.$refs.file.files[0];
           let key = new Date().getTime() + Math.random(1000) + files.name;   //这是上船后返回的文件名
-          console.log(key)
           var config = {
               useCdnDomain: true,        //表示是否使用 cdn 加速域名，为布尔值，true 表示使用，默认为 false。
               region: qiniu.region.z1,      //选择上传域名区域；当为 null 或 undefined 时，自动分析上传域名区域。  我这里是华东区
@@ -334,12 +316,10 @@ export default {
               },
               error: (err) => {
                   //上传错误后触发
-                  console.log(err);
                   reject(err)
               },
               complete: (result) => {
                   //上传成功后触发。包含文件地址。
-                  console.log(result);
                   this.urlimg = 'http://img.zgcxcgk.com/'+result.key
                   this.img_key = result.key
                   resolve(result)

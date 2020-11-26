@@ -28,15 +28,11 @@
               <p style="font-weight:bold;font-size:14px;">剩余{{news.ps-page}}页未读,</p><span>继续阅读</span> <Icon type="ios-arrow-down" />
             </div>
           </div>
-          <!-- <div class="pagebox" v-if="e == 0">
-            <Page :total="news.ps" size="small" page-size="1" show-total @on-change="pageChange"/>
-          </div>   -->
         </div>
         <div class="paybuts" v-if="news.tp == 2||news.tp == 3">
-          <span v-if="user.vip == 0">现在加入VIP，可享受免费阅读全文</span>
-          <span v-if="user.vip > 0">VIP可免费阅读全文</span>
-          <span v-if="user.vip > 0" style="color:red;">（到期时间：{{user.exp_at}}）</span>
-          <div @click="pay(1)" v-if="!viptime">开通</div>
+          VIP可免费阅读全文
+          <span v-if="user.vip > 0">（到期时间：{{user.exp_at}}）</span>
+          <div @click="pay(1)" v-if="!viptime">开通{{viptime}}</div>
           <div @click="pay(1)" v-if="viptime">续费</div>
         </div>
       </Content>
@@ -80,6 +76,9 @@ export default {
     this.e = this.$route.query.vote == 1?1:0
     const uid = Number(localStorage.getItem('uid'));
     this.getUserInfo(uid);
+    this.$router.afterEach((to, from, next) => {
+      window.scrollTo(0, 0)
+    })
   },
   methods:{
     isprices(){
@@ -105,7 +104,6 @@ export default {
     getDetails(id){
       var _this = this;
       const ids = Number(id);
-      console.log(_this.page)
       _this.$hapi.loadNewsDetail({page:_this.page,news_id:ids}).then(function(response) {
         let data = response.data;
         if (data.code === 200) {

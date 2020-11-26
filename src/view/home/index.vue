@@ -38,9 +38,9 @@
     <!-- <vHeader /> -->
     <Layout id="index">
       <Content style="background:#fff;">
-          <div v-for="(item, indexs) in list" :key="indexs" v-if="item.info.tag !== 'paper'&&item.info.tag !== 'achiev'&&item.info.tag !== 'links'&&item.info.tag !== 'base'">    
+          <div v-for="(item, is) in list" :key="is" v-if="item.info.tag !== 'paper'&&item.info.tag !== 'achiev'&&item.info.tag !== 'links'&&item.info.tag !== 'base'">    
             <div class="topUl">
-              <Card>
+              <Card style="height:100%;">
                 <div class="moreP" style="display: flex;align-items: center;justify-content: space-between;">
                   <div style="display: flex;align-items: center;">
                     <Icon type="ios-list" style="font-size:20px;" />
@@ -57,7 +57,8 @@
                       <div>
                         <p class="viewTitle">{{obj.title}}</p>
                         <div class="viewDes">
-                          {{obj.des}}<span style="color:red">[详细]</span>
+                          {{obj.des}}
+                          <span class="moretybtn" style="color:red" v-if="obj.des!==''">[详细]</span>
                         </div>
                       </div>
                     </div>
@@ -66,14 +67,14 @@
               </Card>
             </div>
           </div>
-          <div v-for="(item, indexs) in list" :key="indexs">
+          <div v-for="(item, index1) in list" :key="index1+'ce'">
             <div v-if="item.info.tag == 'achiev'">
               <img class="adImg" v-for="(itemimg,ids) in adlist" :key="ids" :src="itemimg.cover" @click="getlinks(itemimg.type,itemimg.t_url)" v-if="itemimg.loc == 1" style="cursor: pointer;" />
             </div>
             <div v-if="item.info.tag == 'achiev'">
               <div class="booktitleBox">
                 <div class="bookcount" style="position:relative;">
-                  <div class="bookcount_left">
+                  <div class="bookcount_left" style="height:auto;">
                     <div class="bookcount_lefts">
                       <span>优</span><span>秀</span><span>成</span><span>果</span>
                     </div>
@@ -101,7 +102,7 @@
                     <div class="morelist" v-if="item.child.length>0">
                       <Button @click="more1(item.info.nav_id)">More</Button>
                     </div>
-                    <li v-for="(obj,i) in item.child" :key="i" v-if="i<5" class="bookcount_rightli" @click="getDetails(obj.news_id)">
+                    <li v-for="(obj,i3) in item.child" :key="i3" v-if="i3<5" class="bookcount_rightli" @click="getDetails(obj.news_id)">
                       {{obj.title}}
                     </li>
                   </div>
@@ -109,10 +110,10 @@
               </div>
             </div>
             <div style="width:100%;" v-if="item.info.tag == 'paper'">
-              <img class="adImg" v-for="(itemimg,ids) in adlist" v-if="itemimg.loc == 2" :key="ids" :src="itemimg.cover" @click="getlinks(itemimg.type,itemimg.t_url)" style="cursor: pointer;" />
+              <img class="adImg" v-for="(itemimg,ids1) in adlist" :key="ids1" v-if="itemimg.loc == 2" :src="itemimg.cover" @click="getlinks(itemimg.type,itemimg.t_url)" style="cursor: pointer;" />
             </div>
           </div>
-          <div v-for="(item, indexs) in list" :key="indexs">
+          <div v-for="(item, index2) in list" :key="index2+'ct'">
             <div v-if="item.info.tag == 'base'">
               <div class="booktitleBox">
                 <div class="bookcount">
@@ -122,7 +123,7 @@
                     </div>
                   </div>
                   <ul style="width:88%;">
-                    <li class="sf_li" v-for="(item,index) in logoList" :key="index" v-if="index<9" style="" @click="getlinks(item.type,item.url)">
+                    <li class="sf_li" v-for="(item,i1) in logoList" :key="i1" v-if="i1<9" style="" @click="getlinks(item.type,item.url)">
                       <img class="logosimg" :src="item.img"/>
                     </li>
                   </ul>
@@ -138,7 +139,7 @@
                     </div>
                   </div>
                   <ul style="width:88%;">
-                    <li class="sf_li1" v-for="(item,index) in logoList1" :key="index" v-if="index<25" style="" @click="getlinks(item.type,item.url)">
+                    <li class="sf_li1" v-for="(item,i2) in logoList1" :key="i2" v-if="i2<25" @click="getlinks(item.type,item.url)">
                       <div class="sf_li1_line"></div>
                       
                       <span style="white-space:nowrap;
@@ -179,6 +180,7 @@ export default {
     this.getINav();
     this.getLink();
     this.getAd()
+    localStorage.setItem('navId', -1)
   },
   methods: {
     loadDetail(name) {
@@ -234,7 +236,6 @@ export default {
       _self.$hapi.getAd({source:1}).then(function(response) {
         let data = response.data;
         if (data.code === 200) {
-          console.log(data.data.list)
           _self.adlist = data.data.list
         } else {
           _self.$Message.error(data.msg);
@@ -242,8 +243,6 @@ export default {
       });
     },
     getlinks(type,url){
-      // window.location.href = url;
-      
       type == 1?window.open(url):window.location.href = url;
     },
     getDetails(id){

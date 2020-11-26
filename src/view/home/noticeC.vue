@@ -62,7 +62,6 @@ export default {
         let data = response.data;
         if (data.code === 200) {
           _self.list = data.data;
-          console.log(data.data)
           for(var i =0 ;i<_self.list.list.length;i++){
             _self.list.list[i].ct = commons.formatDate(_self.list.list[i].ct)
           }

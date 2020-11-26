@@ -59,7 +59,6 @@ export default {
         localStorage.setItem('navId', id)
         this.navId = localStorage.getItem('navId')
       }
-      
     },
     getNav() {
       var _self = this;
@@ -67,7 +66,6 @@ export default {
         let data = response.data;
         if (data.code === 200) {
           _self.list = data.data.list;
-          console.log(data.data.list)
           if((data.data.list.length+1)%2 == 1){
             _self.width = ((data.data.list.length+2)/2)*85.1+'px'
           }else{

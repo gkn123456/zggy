@@ -90,6 +90,15 @@
   -webkit-line-clamp: 3;
   line-clamp: 3;
   -webkit-box-orient: vertical;
+  position: relative;
+}
+.moretybtn{
+  position: absolute;
+  bottom:0;
+  right: 0;
+  background: #fff;
+  padding: 0 5px 0 8px;
+  background:linear-gradient(to right,rgba(255,255,255,.9),rgba(255,255,255,.9),rgba(255,255,255,1))
 }
 .moreP{
   font-weight: bold;
@@ -99,6 +108,9 @@
   color:#333;
 }
 .viewDes:hover{
+  text-decoration: underline;
+}
+.viewDes:hover .moretybtn{
   text-decoration: underline;
 }
 .moreP .more{
@@ -152,6 +164,7 @@
 
 .topUl {
   width: 50%;
+  height: 136px;
   float: left;
   text-align: left;
   background: #fff;
@@ -160,7 +173,12 @@
   transition: all 0.2s ease-in-out;
   cursor: pointer;
 }
-
+.topUl ul{
+  height: 100%;
+}
+.topUl ul li{
+  height: 100%;
+}
 .topUl ul li a{
   font-size: 12px;
   line-height: 20px;
@@ -169,7 +187,6 @@
 
 .topUl ul li div{
   font-size: 12px;
-  height:78px;
   color: #000;
 }
 
@@ -281,7 +298,8 @@
   overflow:hidden;
   text-overflow:ellipsis;
   text-align: left;
-  font-weight: bold;
+  font-size: 12px;
+  color:#000;
   padding:0 5px;
   cursor: pointer;
 }

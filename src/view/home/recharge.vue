@@ -23,7 +23,7 @@
                             <div class="priceulleft">{{item.moth}}个月</div>
                             <div class="priceulright">
                                 <div>￥{{item.price}}</div>
-                                <div class="priceulright_b">￥{{item.s_price}}</div>
+                                <!-- <div>￥5.5 /月</div> -->
                             </div>
                             <div class="bottomimg" v-if="type == index"></div>
                         </li>
@@ -127,7 +127,6 @@ export default {
                 let data = response.data;
                 if(data.code == 200){
                     _this.vipList = data.data.list
-                    console.log(data.data.list)
                     if(_this.$route.query.type == 1){
                         _this.vip_id = data.data.list[0].vip_id
                     }
@@ -149,7 +148,6 @@ export default {
                 let data = response.data;
                 if(data.code == 200){
                     _this.spinShow = false;
-                    console.log(data.data.data)
                     const url = 'https://openapi.alipay.com/gateway.do?'+data.data.data;
                     window.location.href = url
                 }
@@ -175,7 +173,7 @@ export default {
         margin-top:20px;
     }
     .priceul li{
-        background: #fff;
+        background: url(~@/assets/img/reg.png) no-repeat;
         background-size: 100% 100%;
     }
     .priceul li{
@@ -187,7 +185,7 @@ export default {
         border-radius: 5px;
         cursor: pointer;
         position: relative;
-        color: #333;
+        color: #fff;
     }
     .bottomimg{
         width: 28px;
@@ -220,6 +218,12 @@ export default {
         justify-content: center;
         
     }
+    .priceul li:first-child .priceulright div{
+        color: #fff;
+    }
+    .priceul li:first-child .priceulleft{
+        color: #fff;
+    }
     .priceulright div:first-child{
         font-weight: 700;
         line-height: 35px;
@@ -251,10 +255,6 @@ export default {
     .typeuls li img{
         width: 20px;
         margin-right: 5px;
-    }
-    .priceulright_b{
-        color: #ccc;
-        text-decoration-line:line-through;
     }
     .typesli1{
         border:1px solid #D7B779;
